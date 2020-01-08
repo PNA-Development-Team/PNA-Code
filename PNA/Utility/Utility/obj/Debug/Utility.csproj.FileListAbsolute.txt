@@ -1,0 +1,12 @@
+C:\Software\PNA\Utility\Utility.dll
+C:\Software\PNA\Utility\Utility.pdb
+D:\Github\Code\MyItems\PNA\Utility\Utility\obj\Debug\Utility.csproj.CoreCompileInputs.cache
+D:\Github\Code\MyItems\PNA\Utility\Utility\obj\Debug\Utility.dll
+D:\Github\Code\MyItems\PNA\Utility\Utility\obj\Debug\Utility.pdb
+D:\Github\Code\MyItems\PNA\Utility\Utility\obj\Debug\Utility.csprojAssemblyReference.cache
+D:\PNAProject\PNAPublication\PNA\Utility\Utility.dll
+D:\PNAProject\PNAPublication\PNA\Utility\Utility.pdb
+D:\PNAProject\PNACode\PNA\Utility\Utility\obj\Debug\Utility.csprojAssemblyReference.cache
+D:\PNAProject\PNACode\PNA\Utility\Utility\obj\Debug\Utility.csproj.CoreCompileInputs.cache
+D:\PNAProject\PNACode\PNA\Utility\Utility\obj\Debug\Utility.dll
+D:\PNAProject\PNACode\PNA\Utility\Utility\obj\Debug\Utility.pdb

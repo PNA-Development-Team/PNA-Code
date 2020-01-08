@@ -1,0 +1,16 @@
+C:\Software\PNA\PNA\PNA.exe.config
+C:\Software\PNA\PNA\PNA.exe
+C:\Software\PNA\PNA\PNA.pdb
+D:\Github\Code\MyItems\PNA\PNA\PNA\obj\Debug\PNA.csprojAssemblyReference.cache
+D:\Github\Code\MyItems\PNA\PNA\PNA\obj\Debug\PNA.csproj.CoreCompileInputs.cache
+D:\Github\Code\MyItems\PNA\PNA\PNA\obj\Debug\PNA.csproj.CopyComplete
+D:\Github\Code\MyItems\PNA\PNA\PNA\obj\Debug\PNA.exe
+D:\Github\Code\MyItems\PNA\PNA\PNA\obj\Debug\PNA.pdb
+D:\PNAProject\PNAPublication\PNA\PNA\PNA.exe.config
+D:\PNAProject\PNAPublication\PNA\PNA\PNA.exe
+D:\PNAProject\PNAPublication\PNA\PNA\PNA.pdb
+D:\PNAProject\PNACode\PNA\PNA\PNA\obj\Debug\PNA.csprojAssemblyReference.cache
+D:\PNAProject\PNACode\PNA\PNA\PNA\obj\Debug\PNA.csproj.CoreCompileInputs.cache
+D:\PNAProject\PNACode\PNA\PNA\PNA\obj\Debug\PNA.csproj.CopyComplete
+D:\PNAProject\PNACode\PNA\PNA\PNA\obj\Debug\PNA.exe
+D:\PNAProject\PNACode\PNA\PNA\PNA\obj\Debug\PNA.pdb

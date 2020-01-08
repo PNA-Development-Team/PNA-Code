@@ -1,0 +1,16 @@
+C:\Software\PNA\PNA\Menu\File\FileUtility.dll
+C:\Software\PNA\PNA\Menu\File\FileUtility.pdb
+D:\Github\Code\MyItems\PNA\PNA\FileUtility\obj\Debug\FileUtility.csproj.CoreCompileInputs.cache
+D:\Github\Code\MyItems\PNA\PNA\FileUtility\obj\Debug\FileUtility.csproj.CopyComplete
+D:\Github\Code\MyItems\PNA\PNA\FileUtility\obj\Debug\FileUtility.dll
+D:\Github\Code\MyItems\PNA\PNA\FileUtility\obj\Debug\FileUtility.pdb
+C:\Software\PNA\PNA\Menu\File\FileUtility\FileUtility.dll
+C:\Software\PNA\PNA\Menu\File\FileUtility\FileUtility.pdb
+D:\Github\Code\MyItems\PNA\PNA\FileUtility\obj\Debug\FileUtility.csprojAssemblyReference.cache
+D:\PNAProject\PNAPublication\PNA\PNA\Menu\File\FileUtility\FileUtility.dll
+D:\PNAProject\PNAPublication\PNA\PNA\Menu\File\FileUtility\FileUtility.pdb
+D:\PNAProject\PNACode\PNA\PNA\FileUtility\obj\Debug\FileUtility.csprojAssemblyReference.cache
+D:\PNAProject\PNACode\PNA\PNA\FileUtility\obj\Debug\FileUtility.csproj.CoreCompileInputs.cache
+D:\PNAProject\PNACode\PNA\PNA\FileUtility\obj\Debug\FileUtility.csproj.CopyComplete
+D:\PNAProject\PNACode\PNA\PNA\FileUtility\obj\Debug\FileUtility.dll
+D:\PNAProject\PNACode\PNA\PNA\FileUtility\obj\Debug\FileUtility.pdb
