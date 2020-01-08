@@ -46,11 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Element2D.cs" />
-    <Compile Include="Element3D.cs" />
-    <Compile Include="ElementBase.cs" />
-    <Compile Include="PointAndMatrixDefinition.cs" />
+    <Compile Include="Element\Element2D.cs" />
+    <Compile Include="Element\Element3D.cs" />
+    <Compile Include="Element\ElementBase.cs" />
+    <Compile Include="Element\PointAndMatrixDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Window.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Command\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
