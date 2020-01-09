@@ -75,6 +75,7 @@ namespace RootApp
         {
             Utility.DebugHelper.Log("Appliction Started.");
             InitializeComponent();
+            this.SizeChanged += new EventHandler(PNAMainForm_SizeChanged);
             string iconImagePath = Path.Combine(ConstData.AppIconPath, "PNA.ico");
             if (File.Exists(iconImagePath))
                 this.Icon = new Icon(iconImagePath);
@@ -100,6 +101,14 @@ namespace RootApp
                     this.Close();
                 }
             }
+        }
+
+        private void PNAMainForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.m_currentOpenPNsPage != null)
+            {
+                this.m_currentOpenPNsPage.Update();
+            }    
         }
 
         public void SetDebugText(string debugText)
@@ -255,8 +264,9 @@ namespace RootApp
             newPage.Parent = this;
             if(this.m_newPageCount != 0)
             {
-                newPage.Text = "New Page" + this.m_newPageCount.ToString();
+                newPage.PageName = "New Page" + this.m_newPageCount.ToString();
             }
+            newPage.Disposed += new EventHandler(CurrentOpenPnsPage_Dispose);
 
             if(this.m_currentOpenPNsPage != null)
                 this.m_currentOpenPNsPage.SetActiveMode(false);
@@ -281,9 +291,6 @@ namespace RootApp
 
         private void OperatorDockPanelActiveDocumentChanged(object sender, EventArgs e)
         {
-            if (this.m_currentOpenPNsPage.IsDisposed)
-                this.m_petriNetsPageDictionary.Remove(this.m_currentOpenPNsPage.Text);
-
             if(this.operatorDockPanel.ActiveDocument != null)
             {
                 this.m_currentOpenPNsPage.SetActiveMode(false);
@@ -297,6 +304,13 @@ namespace RootApp
                 this.m_currentOpenPNsPage = null;
                 RootApp.UI.UI.ShowDebugText("All page has been closed !");
             }
+        }
+
+        private void CurrentOpenPnsPage_Dispose(object sender,EventArgs e)
+        {
+            if(this.m_currentOpenPNsPage != null && 
+               this.m_petriNetsPageDictionary.ContainsKey(this.m_currentOpenPNsPage.PageName))
+                this.m_petriNetsPageDictionary.Remove(this.m_currentOpenPNsPage.PageName);
         }
     }
 }

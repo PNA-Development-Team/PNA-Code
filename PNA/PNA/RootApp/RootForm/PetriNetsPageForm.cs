@@ -25,6 +25,28 @@ namespace RootApp
             get { return m_isActive; }
         }
 
+        private string m_pageName = "New Page";
+        public string PageName
+        {
+            get { return m_pageName; }
+            set
+            {
+                m_pageName = value;
+                this.Text = value;
+            }
+        }
+
+        private DrawTool.Color m_backgroundColor = DrawTool.Color.Ivory;
+        public DrawTool.Color BackgroundColor
+        {
+            get { return m_backgroundColor; }
+            set
+            {
+                m_backgroundColor = value;
+                this.Update();
+            }
+        }
+
         public PetriNetsPageForm()
         {
             InitializeComponent();
@@ -39,7 +61,7 @@ namespace RootApp
         {
             m_isActive = isActive;
             if(m_isActive)
-                DrawTool.Window.LoadWindow(this, DrawTool.Color.BLACK);
+                DrawTool.Window.LoadWindow(this);
             else if(DrawTool.Window.WinHandle == this.m_WinHandle)
             {
                 DrawTool.Window.UnLoadWindow();
@@ -53,23 +75,28 @@ namespace RootApp
 
         private void PetriNetsPageForm_Shown(object sender, EventArgs e)
         {
-            DrawTool.Window.SetBackgroundColor(DrawTool.Color.BLACK);
+            this.Update();
         }
 
         private void PetriNetsPageForm_Paint(object sender, EventArgs e)
         {
-            DrawTool.Window.SetBackgroundColor(DrawTool.Color.BLACK);
+            this.Update();
         }
 
         private void PetriNetsPageForm_Click(object sender, EventArgs e)
         {
-            DrawTool.Window.SetBackgroundColor(DrawTool.Color.BLACK);
+            this.Update();
         }
 
         public void ShowWindow(DockPanel dockPanel,DockState dockState)
         {
             this.Show(dockPanel);
             this.DockState = dockState;
+        }
+
+        public new void Update()
+        {
+            DrawTool.Window.SetBackgroundColor(this.m_backgroundColor);
         }
 
         public void AddPlace()

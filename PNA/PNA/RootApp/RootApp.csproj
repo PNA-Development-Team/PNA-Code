@@ -31,7 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DrawTool">
+    <Reference Include="DrawTool, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\PNA-Publication\PNA\Utility\DrawTool.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -52,11 +53,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Software\PNA\Utility\Utility.dll</HintPath>
+      <HintPath>..\..\..\..\PNA-Publication\PNA\Utility\Utility.dll</HintPath>
     </Reference>
     <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.4.0.16114, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Software\PNA\PNA\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <HintPath>..\..\..\..\PNA-Publication\PNA\PNA\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

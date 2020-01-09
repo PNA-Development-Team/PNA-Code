@@ -16,3 +16,9 @@ D:\Ryan\Github\PNA\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.csprojAssembly
 D:\Ryan\Github\PNA\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.csproj.CoreCompileInputs.cache
 D:\Ryan\Github\PNA\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.dll
 D:\Ryan\Github\PNA\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.pdb
+D:\PNAProject\PNA-Publication\PNA\Utility\Utility.dll
+D:\PNAProject\PNA-Publication\PNA\Utility\Utility.pdb
+D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.csprojAssemblyReference.cache
+D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.csproj.CoreCompileInputs.cache
+D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.dll
+D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.pdb

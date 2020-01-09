@@ -62,7 +62,7 @@ namespace DrawTool
         {
             throw new NotImplementedException();
         }
-        public virtual bool Updata()
+        public virtual bool Update()
         {
             throw new NotImplementedException();
         }

@@ -18,3 +18,9 @@ D:\Ryan\Github\PNA\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.csp
 D:\Ryan\Github\PNA\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.csproj.CopyComplete
 D:\Ryan\Github\PNA\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.dll
 D:\Ryan\Github\PNA\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.pdb
+D:\PNAProject\PNA-Publication\PNA\Utility\DrawTool.dll
+D:\PNAProject\PNA-Publication\PNA\Utility\DrawTool.pdb
+D:\PNAProject\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.csproj.CoreCompileInputs.cache
+D:\PNAProject\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.csproj.CopyComplete
+D:\PNAProject\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.dll
+D:\PNAProject\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.pdb

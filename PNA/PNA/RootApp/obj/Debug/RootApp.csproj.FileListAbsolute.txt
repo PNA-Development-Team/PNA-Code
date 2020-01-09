@@ -34,3 +34,15 @@ D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csproj.CoreCompile
 D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csproj.CopyComplete
 D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.dll
 D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.pdb
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.Properties.Resources.resources
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.OperatorForm.resources
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.PetriNetsPageForm.resources
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.PNAMainForm.resources
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csproj.GenerateResource.cache
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csproj.CoreCompileInputs.cache
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.dll
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.pdb
+D:\PNAProject\PNA-Publication\PNA\PNA\RootApp.dll
+D:\PNAProject\PNA-Publication\PNA\PNA\RootApp.pdb
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csproj.CopyComplete
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csprojAssemblyReference.cache

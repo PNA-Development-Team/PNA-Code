@@ -21,7 +21,7 @@ namespace DrawTool
             get { return m_glrc; }
         }
 
-        public static bool LoadWindow(System.Windows.Forms.Form window,Color color)
+        public static bool LoadWindow(System.Windows.Forms.Form window)
         {
             if (window == null || window.IsDisposed || window.Handle == IntPtr.Zero)
                 return false;
@@ -51,13 +51,16 @@ namespace DrawTool
         public static bool SetBackgroundColor(Color color)
         {
             RGB tempColor = RGB2OpenGLRGB(new RGB(color));
-
+            m_glrc.MakeCurrent();
+            
+            gl.ClearColor(tempColor.R, tempColor.G, tempColor.B, 1);
             gl.Clear(GL.COLOR_BUFFER_BIT);
             gl.Color3(1f, 0f, 0f);
             gl.Begin(GL.TRIANGLES);
             gl.Vertex2(-0.5f, -0.5f);
             gl.Vertex2(0f, 0.5f);
             gl.Vertex2(0.5f, -0.5f);
+
             gl.End();
             gl.Flush();
             m_glrc.SwapBuffers();
