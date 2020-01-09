@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using Utility;
+using DrawTool;
 
 namespace RootApp
 {
@@ -81,6 +82,7 @@ namespace RootApp
             OperatorForm.ShowWindow(this.operatorDockPanel, DockState.DockLeft);
 
             this.operatorDockPanel.ActiveDocumentChanged += new EventHandler(OperatorDockPanelActiveDocumentChanged);
+            
         }
 
         private void PNAMainForm_Load(object sender, EventArgs e)
@@ -254,14 +256,17 @@ namespace RootApp
             if(this.m_newPageCount != 0)
             {
                 newPage.Text = "New Page" + this.m_newPageCount.ToString();
-            }              
-            newPage.ShowWindow(this.operatorDockPanel,DockState.Document);
+            }
 
-            this.m_petriNetsPageDictionary.Add(newPage.Text, newPage);
+            if(this.m_currentOpenPNsPage != null)
+                this.m_currentOpenPNsPage.SetActiveMode(false);
             this.m_currentOpenPNsPage = newPage;
+            this.m_currentOpenPNsPage.ShowWindow(this.operatorDockPanel,DockState.Document);
+
+            this.m_petriNetsPageDictionary.Add(this.m_currentOpenPNsPage.Text, this.m_currentOpenPNsPage);
             this.m_newPageCount++;
 
-            RootApp.UI.UI.ShowDebugText("Create New Page Named :" + this.m_currentOpenPNsPage.Text + ".");
+            RootApp.UI.UI.ShowDebugText("Create new page named " + this.m_currentOpenPNsPage.Text + ".");
         }
 
         public void OpenPage()
@@ -276,13 +281,19 @@ namespace RootApp
 
         private void OperatorDockPanelActiveDocumentChanged(object sender, EventArgs e)
         {
+            if (this.m_currentOpenPNsPage.IsDisposed)
+                this.m_petriNetsPageDictionary.Remove(this.m_currentOpenPNsPage.Text);
+
             if(this.operatorDockPanel.ActiveDocument != null)
             {
+                this.m_currentOpenPNsPage.SetActiveMode(false);
                 this.m_currentOpenPNsPage = this.operatorDockPanel.ActiveDocument as PetriNetsPageForm;
+                this.m_currentOpenPNsPage.SetActiveMode(true);
                 RootApp.UI.UI.ShowDebugText("Open " + this.m_currentOpenPNsPage.Text + ".");
             }
             else
             {
+                this.m_currentOpenPNsPage.SetActiveMode(false);
                 this.m_currentOpenPNsPage = null;
                 RootApp.UI.UI.ShowDebugText("All page has been closed !");
             }

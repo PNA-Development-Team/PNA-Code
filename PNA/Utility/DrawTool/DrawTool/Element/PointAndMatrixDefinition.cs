@@ -182,16 +182,16 @@ namespace DrawTool
 
     public class RGB
     {
-        public double R;
-        public double G;
-        public double B;
+        public float R;
+        public float G;
+        public float B;
 
         public RGB()
         {
             R = 0; G = 0; B = 0;
         }
 
-        public RGB(double r,double g,double b)
+        public RGB(float r, float g, float b)
         {
             R = r;  G = g; B = b;
         }

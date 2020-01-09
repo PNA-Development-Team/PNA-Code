@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\PNAPublication\PNA\PNA\Menu\Draw\DrawUtility\</OutputPath>
+    <OutputPath>..\..\..\..\..\PNA-Publication\PNA\PNA\Menu\Draw\DrawUtility\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

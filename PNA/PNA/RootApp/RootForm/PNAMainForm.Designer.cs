@@ -13,6 +13,11 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            foreach(PetriNetsPageForm page in m_petriNetsPageDictionary.Values)
+            {
+                page.Dispose();
+            }
+            OperatorForm.Instance.Dispose();
             if (disposing && (components != null))
             {
                 components.Dispose();

@@ -14,3 +14,11 @@ D:\PNAProject\PNACode\PNA\PNA\PNA\obj\Debug\PNA.csproj.CoreCompileInputs.cache
 D:\PNAProject\PNACode\PNA\PNA\PNA\obj\Debug\PNA.csproj.CopyComplete
 D:\PNAProject\PNACode\PNA\PNA\PNA\obj\Debug\PNA.exe
 D:\PNAProject\PNACode\PNA\PNA\PNA\obj\Debug\PNA.pdb
+D:\Ryan\Github\PNA\PNA-Publication\PNA\PNA\PNA.exe.config
+D:\Ryan\Github\PNA\PNA-Publication\PNA\PNA\PNA.exe
+D:\Ryan\Github\PNA\PNA-Publication\PNA\PNA\PNA.pdb
+D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.csprojAssemblyReference.cache
+D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.csproj.CoreCompileInputs.cache
+D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.csproj.CopyComplete
+D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.exe
+D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.pdb
