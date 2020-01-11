@@ -10,7 +10,7 @@ using RootApp;
 
 namespace FileUtility
 {
-    public class FileUtility : RootApp.UI.IPluginBase
+    public class Entrance : RootApp.UI.IPluginBase
     {
         public void Init()
         {

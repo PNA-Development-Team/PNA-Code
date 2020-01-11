@@ -36,7 +36,7 @@ namespace RootApp
             }
         }
 
-        private DrawTool.Color m_backgroundColor = DrawTool.Color.Ivory;
+        private DrawTool.Color m_backgroundColor = DrawTool.Color.WHITE;
         public DrawTool.Color BackgroundColor
         {
             get { return m_backgroundColor; }
@@ -47,6 +47,20 @@ namespace RootApp
             }
         }
 
+        private static bool m_isShowGrid = true;
+        public static bool IsShowGrid
+        {
+            get { return m_isShowGrid; }
+            set { m_isShowGrid = value; }
+        }
+
+        private static int m_accuracy = 1;
+        public static int Accuracy
+        {
+            get { return m_accuracy; }
+            set { m_accuracy = value; }
+        }
+
         public PetriNetsPageForm()
         {
             InitializeComponent();
@@ -54,7 +68,7 @@ namespace RootApp
             this.Shown += new EventHandler(PetriNetsPageForm_Shown);
             this.Paint += new PaintEventHandler(PetriNetsPageForm_Paint);
             this.Click += new EventHandler(PetriNetsPageForm_Click);
-            
+            this.SizeChanged += new EventHandler(PetriNetsPageForm_SizeChanged);
         }
 
         public void SetActiveMode(bool isActive)
@@ -62,7 +76,7 @@ namespace RootApp
             m_isActive = isActive;
             if(m_isActive)
                 DrawTool.Window.LoadWindow(this);
-            else if(DrawTool.Window.WinHandle == this.m_WinHandle)
+            else if(DrawTool.Window.IsLoadedWindow() && DrawTool.Window.WinHandle == this.m_WinHandle)
             {
                 DrawTool.Window.UnLoadWindow();
             }
@@ -88,6 +102,15 @@ namespace RootApp
             this.Update();
         }
 
+        private void PetriNetsPageForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.IsActive)
+            {
+                DrawTool.Window.ReLoadWindow();
+                this.Update();
+            }
+        }
+
         public void ShowWindow(DockPanel dockPanel,DockState dockState)
         {
             this.Show(dockPanel);
@@ -96,7 +119,11 @@ namespace RootApp
 
         public new void Update()
         {
+            if (!DrawTool.Window.IsLoadedWindow())
+                SetActiveMode(true);
             DrawTool.Window.SetBackgroundColor(this.m_backgroundColor);
+            if (m_isShowGrid)
+                DrawTool.Window.ShowGrid(Accuracy);
         }
 
         public void AddPlace()
@@ -112,6 +139,18 @@ namespace RootApp
         public void AddArc()
         {
             MessageBox.Show("Added Arc at " + this.Text + "!");
+        }
+
+        public void ViewLarger()
+        {
+            DrawTool.Window.ChangeViewPoint(2);
+            this.Update();
+        }
+
+        public void ViewSmaller()
+        {
+            DrawTool.Window.ChangeViewPoint(1);
+            this.Update();
         }
     }
 }

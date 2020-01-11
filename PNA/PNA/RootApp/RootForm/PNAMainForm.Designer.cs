@@ -53,11 +53,12 @@
             // 
             // menuRoot
             // 
+            this.menuRoot.AutoSize = false;
             this.menuRoot.BackColor = System.Drawing.SystemColors.Control;
             this.menuRoot.Location = new System.Drawing.Point(0, 0);
             this.menuRoot.Name = "menuRoot";
             this.menuRoot.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuRoot.Size = new System.Drawing.Size(784, 24);
+            this.menuRoot.Size = new System.Drawing.Size(784, 35);
             this.menuRoot.TabIndex = 1;
             this.menuRoot.Text = "menuRoot";
             // 
@@ -69,7 +70,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.operatorDockPanel.BackColor = System.Drawing.SystemColors.Control;
             this.operatorDockPanel.DockBackColor = System.Drawing.SystemColors.Control;
-            this.operatorDockPanel.Location = new System.Drawing.Point(0, 50);
+            this.operatorDockPanel.Location = new System.Drawing.Point(0, 70);
             this.operatorDockPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.operatorDockPanel.Name = "operatorDockPanel";
             this.operatorDockPanel.Size = new System.Drawing.Size(784, 387);
@@ -133,9 +134,10 @@
             // 
             // toolStripRoot
             // 
-            this.toolStripRoot.Location = new System.Drawing.Point(0, 24);
+            this.toolStripRoot.AutoSize = false;
+            this.toolStripRoot.Location = new System.Drawing.Point(0, 35);
             this.toolStripRoot.Name = "toolStripRoot";
-            this.toolStripRoot.Size = new System.Drawing.Size(784, 25);
+            this.toolStripRoot.Size = new System.Drawing.Size(784, 35);
             this.toolStripRoot.TabIndex = 16;
             this.toolStripRoot.Text = "toolStrip1";
             // 

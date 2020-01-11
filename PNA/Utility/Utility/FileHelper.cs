@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Utility
 {
-    public class FileHelper
+    public static class FileHelper
     {
         public static List<string> GetAllConfigFiles(string folderPath)
         {

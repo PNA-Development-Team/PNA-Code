@@ -65,6 +65,11 @@ namespace RootApp
         {
             get
             {
+                if(m_currentOpenPNsPage == null)
+                {
+                    MessageBox.Show("Please create or open a page first!");
+                    return null;
+                }
                 return m_currentOpenPNsPage;
             }
         }
@@ -75,6 +80,8 @@ namespace RootApp
         {
             Utility.DebugHelper.Log("Appliction Started.");
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.IsMdiContainer = true;
             this.SizeChanged += new EventHandler(PNAMainForm_SizeChanged);
             string iconImagePath = Path.Combine(ConstData.AppIconPath, "PNA.ico");
             if (File.Exists(iconImagePath))
@@ -107,7 +114,7 @@ namespace RootApp
         {
             if (this.m_currentOpenPNsPage != null)
             {
-                this.m_currentOpenPNsPage.Update();
+                //this.m_currentOpenPNsPage.Update();
             }    
         }
 

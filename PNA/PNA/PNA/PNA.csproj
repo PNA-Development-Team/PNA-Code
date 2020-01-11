@@ -45,7 +45,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="RootApp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Software\PNA\PNA\RootApp.dll</HintPath>
+      <HintPath>..\..\..\..\PNA-Publication\PNA\PNA\RootApp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -58,8 +58,9 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Utility">
-      <HintPath>C:\Software\PNA\Utility\Utility.dll</HintPath>
+    <Reference Include="Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\PNA-Publication\PNA\Utility\Utility.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

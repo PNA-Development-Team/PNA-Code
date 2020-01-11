@@ -25,7 +25,6 @@ D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.pdb
 D:\PNAProject\PNA-Publication\PNA\PNA\PNA.exe.config
 D:\PNAProject\PNA-Publication\PNA\PNA\PNA.exe
 D:\PNAProject\PNA-Publication\PNA\PNA\PNA.pdb
-D:\PNAProject\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.csprojAssemblyReference.cache
 D:\PNAProject\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.csproj.CoreCompileInputs.cache
 D:\PNAProject\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.csproj.CopyComplete
 D:\PNAProject\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.exe

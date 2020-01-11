@@ -42,32 +42,56 @@ namespace RootApp.UI
 
         public static void AddPlace()
         {
-            if(PNAMainForm.Instance.CurrentOpenPNsPage == null)
-            {
-                MessageBox.Show("插入库所失败，请先创建或导入一张图纸！");
-                return;
-            }
-            PNAMainForm.Instance.CurrentOpenPNsPage.AddPlace();
+            if(PNAMainForm.Instance.CurrentOpenPNsPage != null)
+                PNAMainForm.Instance.CurrentOpenPNsPage.AddPlace();
         }
 
         public static void AddTransition()
         {
-            if (PNAMainForm.Instance.CurrentOpenPNsPage == null)
-            {
-                MessageBox.Show("插入变迁失败，请先创建或导入一张图纸！");
-                return;
-            }
-            PNAMainForm.Instance.CurrentOpenPNsPage.AddTransition();
+            if (PNAMainForm.Instance.CurrentOpenPNsPage != null)
+                PNAMainForm.Instance.CurrentOpenPNsPage.AddTransition();
         }
 
         public static void AddArc()
         {
-            if (PNAMainForm.Instance.CurrentOpenPNsPage == null)
+            if (PNAMainForm.Instance.CurrentOpenPNsPage != null)
+                PNAMainForm.Instance.CurrentOpenPNsPage.AddArc();
+        }
+
+        public static void ShowGrid(bool isShow,int accuracy)
+        {
+            if(PetriNetsPageForm.IsShowGrid != isShow || PetriNetsPageForm.Accuracy != accuracy)
             {
-                MessageBox.Show("插入弧失败，请先创建或导入一张图纸！");
-                return;
-            }
-            PNAMainForm.Instance.CurrentOpenPNsPage.AddArc();
+                PetriNetsPageForm.IsShowGrid = isShow;
+                PetriNetsPageForm.Accuracy = accuracy;
+                if(PNAMainForm.Instance.CurrentOpenPNsPage != null)
+                    PNAMainForm.Instance.CurrentOpenPNsPage.Update();
+            }  
+        }
+
+        public static void Select()
+        {
+
+        }
+
+        public static void Move()
+        {
+
+        }
+
+        public static void Adapt()
+        {
+
+        }
+
+        public static void ViewLarger()
+        {
+
+        }
+
+        public static void ViewSmaller()
+        {
+
         }
     }
 }

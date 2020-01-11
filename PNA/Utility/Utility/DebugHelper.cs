@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Utility
 {
-    public class DebugHelper
+    public static class DebugHelper
     {
         public static string LogFilePath
         {
