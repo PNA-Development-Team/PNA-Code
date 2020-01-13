@@ -61,8 +61,8 @@ namespace DrawTool
 
     public class Matrix2D
     {
-        public Point2D Row1;
-        public Point2D Row2;
+        public Point2D Row1 = new Point2D();
+        public Point2D Row2 = new Point2D();
 
         public Matrix2D()
         {
@@ -84,8 +84,8 @@ namespace DrawTool
 
     public class Transform2D
     {
-        public Matrix2D Matrix;
-        public Point2D Position;
+        public Matrix2D Matrix = new Matrix2D();
+        public Point2D Position = new Point2D();
 
         public Transform2D()
         {
@@ -106,9 +106,9 @@ namespace DrawTool
 
     public class Matrix3D
     {
-        public Point3D Row1;
-        public Point3D Row2;
-        public Point3D Row3;
+        public Point3D Row1 = new Point3D();
+        public Point3D Row2 = new Point3D();
+        public Point3D Row3 = new Point3D();
 
         public Matrix3D()
         {
@@ -160,8 +160,8 @@ namespace DrawTool
 
     public class Transform3D
     {
-        Matrix3D Matrix;
-        Point3D Position;
+        Matrix3D Matrix = new Matrix3D();
+        Point3D Position = new Point3D();
 
         public Transform3D()
         {

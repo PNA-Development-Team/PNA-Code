@@ -8,9 +8,9 @@ using OpenGL;
 
 namespace DrawTool
 {
-    public static class Window
+    public class Window
     {
-        private static IntPtr m_WinHandle = IntPtr.Zero;
+        private static IntPtr m_WinHandle;
         public static IntPtr WinHandle
         {
             get { return m_WinHandle; }
@@ -22,12 +22,18 @@ namespace DrawTool
             get { return m_glrc; }
         }
 
-        private static int m_windowWidth = 0;
-        private static int m_windowHeight = 0;
+        private static int m_windowWidth;
+        private static int m_windowHeight;
 
-        private static Matrix3D m_lookAtMatrix = new Matrix3D(0,0,1,
-                                                              0,0,0,
-                                                              0,1,0);
+        private static Matrix3D m_lookAtMatrix;
+
+        static Window()
+        {
+            m_WinHandle = IntPtr.Zero;
+            m_windowWidth = 0;
+            m_windowHeight = 0;
+            m_lookAtMatrix = new Matrix3D(0, 0, 1, 0, 0, 0, 0, 1, 0);
+        }
 
         public static bool LoadWindow(System.Windows.Forms.Form window)
         {
@@ -45,23 +51,9 @@ namespace DrawTool
             m_glrc.LoadExtensionFunctions();
 
             gl.Enable(GL.DEPTH_TEST);
-
-            //选择投影矩阵
-            gl.MatrixMode(GL.PROJECTION);
-            //载入单位矩阵到投影矩阵
             gl.LoadIdentity();
 
-            //设置透视投影
-            gl.Frustum(-50, 50, -50, 50, 50, 100);
-            //设置正交投影
-            //GL.glOrtho(-50, 50, -50, 50, 0.1, 50);
-            //生成观察矩阵
-  
-            //当前矩阵乘以观察矩阵
-            gl.MultMatrix(GetLookAtMatrix().ToArray1D<float>());
-
-            //切换回模型矩阵
-            gl.MatrixMode(GL.MODELVIEW);
+            SetLookAtAngle();
 
             return true;
         }
@@ -96,10 +88,13 @@ namespace DrawTool
         public static bool SetBackgroundColor(Color color)
         {
             RGB tempColor = RGB2OpenGLRGB(new RGB(color));
-            m_glrc.MakeCurrent();
+            //m_glrc.MakeCurrent();
             
             gl.ClearColor(tempColor.R, tempColor.G, tempColor.B, 1);
             gl.Clear(GL.COLOR_BUFFER_BIT);
+            gl.Clear(GL.DEPTH_BUFFER_BIT);
+
+            
 
             gl.Color3(1f, 0f, 0f);
             gl.Begin(GL.TRIANGLES);
@@ -126,7 +121,7 @@ namespace DrawTool
 
         public static void ResetViewPoint()
         {
-            m_lookAtMatrix = new Matrix3D(0, 0, 1, 0, 0, 0, 0, 1, 0);
+            ChangeViewPoint(1);
         }
 
         public static bool ChangeViewPoint(int lookHeight)
@@ -162,17 +157,11 @@ namespace DrawTool
             return new Point2D(x / m_windowWidth, y / m_windowHeight);
         }
 
-        private static MAT4<float> Matrix3D2OpenGlLookAtMatrix(Matrix3D matrix)
+        private static void SetLookAtAngle()
         {
-            MAT4<float> lookAtMatrix = GLMATH.LookAtMatrix(new VEC3<float>((float)matrix.Row1.X, (float)matrix.Row1.Y, (float)matrix.Row1.Z),
-                                                           new VEC3<float>((float)matrix.Row2.X, (float)matrix.Row2.Y, (float)matrix.Row2.Z),
-                                                           new VEC3<float>((float)matrix.Row3.X, (float)matrix.Row3.Y, (float)matrix.Row3.Z));
-            return lookAtMatrix;
-        }
-
-        private static MAT4<float> GetLookAtMatrix()
-        {
-            return Matrix3D2OpenGlLookAtMatrix(m_lookAtMatrix);
+            GLAUX.LookAt(new VEC3<float>((float)m_lookAtMatrix.Row1.X, (float)m_lookAtMatrix.Row1.Y, (float)m_lookAtMatrix.Row1.Z),
+                         new VEC3<float>((float)m_lookAtMatrix.Row2.X, (float)m_lookAtMatrix.Row2.Y, (float)m_lookAtMatrix.Row2.Z),
+                         new VEC3<float>((float)m_lookAtMatrix.Row3.X, (float)m_lookAtMatrix.Row3.Y, (float)m_lookAtMatrix.Row3.Z));
         }
     }
 }

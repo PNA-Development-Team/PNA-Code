@@ -86,12 +86,12 @@ namespace RootApp.UI
 
         public static void ViewLarger()
         {
-
+            PNAMainForm.Instance.CurrentOpenPNsPage.ViewLarger();
         }
 
         public static void ViewSmaller()
         {
-
+            PNAMainForm.Instance.CurrentOpenPNsPage.ViewSmaller();
         }
     }
 }
