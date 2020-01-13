@@ -143,17 +143,13 @@ namespace RootApp
 
         public void ViewLarger()
         {
-            DrawTool.Window.ChangeViewPoint(2);
+            DrawTool.Window.ViewLarger();
             this.Update();
         }
 
-        public int smaller = 1;
-
         public void ViewSmaller()
         {
-            if(smaller > 0)
-                smaller += 1;
-            DrawTool.Window.ChangeViewPoint(smaller);
+            DrawTool.Window.ViewSmaller();
             this.Update();
         }
     }

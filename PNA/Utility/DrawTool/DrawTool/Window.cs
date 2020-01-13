@@ -27,12 +27,15 @@ namespace DrawTool
 
         private static Matrix3D m_lookAtMatrix;
 
+        private static Point3D m_scale;
+
         static Window()
         {
             m_WinHandle = IntPtr.Zero;
             m_windowWidth = 0;
             m_windowHeight = 0;
             m_lookAtMatrix = new Matrix3D(0, 0, 1, 0, 0, 0, 0, 1, 0);
+            m_scale = new Point3D(1.0, 1.0, 1.0);
         }
 
         public static bool LoadWindow(System.Windows.Forms.Form window)
@@ -53,7 +56,7 @@ namespace DrawTool
             gl.Enable(GL.DEPTH_TEST);
             gl.LoadIdentity();
 
-            SetLookAtAngle();
+            SetViewDistance();
 
             return true;
         }
@@ -68,9 +71,9 @@ namespace DrawTool
         }
 
         public static bool ReLoadWindow()
-        {
-            UnLoadWindow();
+        {      
             Form window = System.Windows.Forms.Form.FromHandle(m_WinHandle) as Form;
+            UnLoadWindow();
             LoadWindow(window);
             return true;
         }
@@ -121,14 +124,34 @@ namespace DrawTool
 
         public static void ResetViewPoint()
         {
-            ChangeViewPoint(1);
+            m_scale.X = 1.0;
+            m_scale.Y = 1.0;
+            m_scale.Z = 1.0;
+            ReLoadWindow();
         }
 
-        public static bool ChangeViewPoint(int lookHeight)
+        private static void SetViewDistance()
         {
-            m_lookAtMatrix.Row1.Z = lookHeight;
+            gl.Scale(m_scale.X, m_scale.Y, m_scale.Z);
+        }
+
+        public static void ViewLarger()
+        {
+            m_scale.X++;
+            m_scale.Y++;
+            m_scale.Z++;
             ReLoadWindow();
-            return true;
+        }
+
+        public static void ViewSmaller()
+        {
+            if (m_scale.X <= 1)
+                return;
+
+            m_scale.X--;
+            m_scale.Y--;
+            m_scale.Z--;
+            ReLoadWindow();
         }
 
         public static bool SetGrid(bool isShow,int unitLength)
@@ -157,11 +180,5 @@ namespace DrawTool
             return new Point2D(x / m_windowWidth, y / m_windowHeight);
         }
 
-        private static void SetLookAtAngle()
-        {
-            GLAUX.LookAt(new VEC3<float>((float)m_lookAtMatrix.Row1.X, (float)m_lookAtMatrix.Row1.Y, (float)m_lookAtMatrix.Row1.Z),
-                         new VEC3<float>((float)m_lookAtMatrix.Row2.X, (float)m_lookAtMatrix.Row2.Y, (float)m_lookAtMatrix.Row2.Z),
-                         new VEC3<float>((float)m_lookAtMatrix.Row3.X, (float)m_lookAtMatrix.Row3.Y, (float)m_lookAtMatrix.Row3.Z));
-        }
     }
 }
