@@ -56,7 +56,7 @@ namespace DrawTool
             gl.Enable(GL.DEPTH_TEST);
             gl.LoadIdentity();
 
-            SetViewDistance();
+            SetViewDistance(m_scale.X);
 
             return true;
         }
@@ -130,28 +130,12 @@ namespace DrawTool
             ReLoadWindow();
         }
 
-        private static void SetViewDistance()
+        public static void SetViewDistance(double viewSize)
         {
+            m_scale.X = viewSize;
+            m_scale.Y = viewSize;
+            m_scale.Z = viewSize;
             gl.Scale(m_scale.X, m_scale.Y, m_scale.Z);
-        }
-
-        public static void ViewLarger()
-        {
-            m_scale.X++;
-            m_scale.Y++;
-            m_scale.Z++;
-            ReLoadWindow();
-        }
-
-        public static void ViewSmaller()
-        {
-            if (m_scale.X <= 1)
-                return;
-
-            m_scale.X--;
-            m_scale.Y--;
-            m_scale.Z--;
-            ReLoadWindow();
         }
 
         public static bool SetGrid(bool isShow,int unitLength)

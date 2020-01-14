@@ -114,7 +114,7 @@ namespace RootApp
         {
             if (this.m_currentOpenPNsPage != null)
             {
-                //this.m_currentOpenPNsPage.Update();
+
             }    
         }
 
@@ -271,8 +271,9 @@ namespace RootApp
             newPage.Parent = this;
             if(this.m_newPageCount != 0)
             {
-                newPage.PageName = "New Page" + this.m_newPageCount.ToString();
+                newPage.ModifiedPageName("New Page" + this.m_newPageCount.ToString());
             }
+
             newPage.Disposed += new EventHandler(CurrentOpenPnsPage_Dispose);
 
             if(this.m_currentOpenPNsPage != null)
@@ -316,8 +317,9 @@ namespace RootApp
         private void CurrentOpenPnsPage_Dispose(object sender,EventArgs e)
         {
             if(this.m_currentOpenPNsPage != null && 
-               this.m_petriNetsPageDictionary.ContainsKey(this.m_currentOpenPNsPage.PageName))
-                this.m_petriNetsPageDictionary.Remove(this.m_currentOpenPNsPage.PageName);
+               this.m_petriNetsPageDictionary.ContainsKey(this.m_currentOpenPNsPage.PageInfo.PageName))
+                this.m_petriNetsPageDictionary.Remove(this.m_currentOpenPNsPage.PageInfo.PageName);
         }
+
     }
 }

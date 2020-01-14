@@ -73,9 +73,7 @@
       <DependentUpon>OperatorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IPluginBase.cs" />
-    <Compile Include="RootForm\PetriNetsPageForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="RootForm\PetriNetsPageForm.cs" />
     <Compile Include="RootForm\PetriNetsPageForm.Designer.cs">
       <DependentUpon>PetriNetsPageForm.cs</DependentUpon>
     </Compile>
