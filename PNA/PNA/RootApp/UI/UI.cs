@@ -81,7 +81,8 @@ namespace RootApp.UI
 
         public static void Adapt()
         {
-
+            if(PNAMainForm.Instance.CurrentOpenPNsPage != null)
+                PNAMainForm.Instance.CurrentOpenPNsPage.Adapt();
         }
 
         public static void ViewLarger()

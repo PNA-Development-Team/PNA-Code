@@ -35,7 +35,7 @@ namespace DrawTool
             m_windowWidth = 0;
             m_windowHeight = 0;
             m_lookAtMatrix = new Matrix3D(0, 0, 1, 0, 0, 0, 0, 1, 0);
-            m_scale = new Point3D(1.0, 1.0, 1.0);
+            m_scale = new Point3D();
         }
 
         public static bool LoadWindow(System.Windows.Forms.Form window)
@@ -55,8 +55,6 @@ namespace DrawTool
 
             gl.Enable(GL.DEPTH_TEST);
             gl.LoadIdentity();
-
-            SetViewDistance(m_scale.X);
 
             return true;
         }
@@ -127,14 +125,16 @@ namespace DrawTool
             m_scale.X = 1.0;
             m_scale.Y = 1.0;
             m_scale.Z = 1.0;
-            ReLoadWindow();
+            gl.Scale(m_scale.X, m_scale.Y, m_scale.Z);
         }
 
         public static void SetViewDistance(double viewSize)
         {
-            m_scale.X = viewSize;
-            m_scale.Y = viewSize;
-            m_scale.Z = viewSize;
+            double size = (0.5 * Math.Atan(0.1 * viewSize) + 0.25 * Math.PI) * (4 / Math.PI);
+            
+            m_scale.X = size;
+            m_scale.Y = size;
+            m_scale.Z = size;
             gl.Scale(m_scale.X, m_scale.Y, m_scale.Z);
         }
 

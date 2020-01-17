@@ -24,14 +24,12 @@ namespace RootApp
             set { m_pageName = value; }
         }
 
-        private double m_viewSize = 1.0;
+        private double m_viewSize = 0.0;
         public double ViewSize
         {
             get { return m_viewSize; }
             set
             {
-                if (value <= 0)
-                    return;
                 m_viewSize = value;
             }
         }
@@ -201,6 +199,7 @@ namespace RootApp
         {
             if (!DrawTool.Window.IsLoadedWindow())
                 SetActiveMode(true);
+            DrawTool.Window.SetViewDistance(this.m_pageInfo.ViewSize);
             DrawTool.Window.SetBackgroundColor(m_backgroundColor);
             if (m_isShowGrid)
                 DrawTool.Window.ShowGrid(Accuracy);
@@ -225,20 +224,24 @@ namespace RootApp
         {
             if(e.Delta > 0)
             {
-                this.m_pageInfo.ViewSize += 0.1;
-                DrawTool.Window.SetViewDistance(this.m_pageInfo.ViewSize);
+                this.m_pageInfo.ViewSize++;             
                 this.Update();
             }
             else if(e.Delta < 0)
             {
-                this.m_pageInfo.ViewSize -= 0.1;
-                DrawTool.Window.SetViewDistance(this.m_pageInfo.ViewSize);
+                this.m_pageInfo.ViewSize--;
                 this.Update();
             }
             else if(e.Button == System.Windows.Forms.MouseButtons.Middle)
             {
 
             }
+        }
+
+        public void Adapt()
+        {
+            this.m_pageInfo.ViewSize = 0;
+            this.Update();
         }
     }
 }
