@@ -12,6 +12,9 @@ namespace ViewUtility
         public void Init()
         {
             RootApp.UI.RegisterMenu.AddMenu("ViewUtility", "Set Grid");
+            RootApp.UI.RegisterMenu.AddMenu("ViewUtility", "Mathematical Tool");
+            RootApp.UI.RegisterMenu.AddMenu("ViewUtility", "Mathematical Tool", "Integer Linear Programming");
+            RootApp.UI.RegisterMenu.AddMenu("ViewUtility", "Mathematical Tool", "Matrix Operations");
         }
 
         public void RunCommand(string strCommand)
@@ -20,6 +23,16 @@ namespace ViewUtility
             {
                 SetGridForm.ShowWindow();
                 RootApp.UI.UI.ShowGrid(SetGridForm.IsShowGrid,SetGridForm.Accuracy);
+            }
+
+            if (strCommand == "Integer Linear Programming")
+            {
+                ILPForm.ShowWindow();
+            }
+
+            if(strCommand == "Matrix Operations")
+            {
+
             }
         }
     }

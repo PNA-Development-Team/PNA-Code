@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entrance.cs" />
+    <Compile Include="ILPForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ILPForm.Designer.cs">
+      <DependentUpon>ILPForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetGridForm.cs">
       <SubType>Form</SubType>
@@ -59,6 +65,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ILPForm.resx">
+      <DependentUpon>ILPForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SetGridForm.resx">
       <DependentUpon>SetGridForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawTool", "..\Utility\Draw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewUtility", "ViewUtility\ViewUtility\ViewUtility.csproj", "{AF942D11-26F5-4920-8BC7-AC511753D8D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathematicalTool", "..\Utility\Mathematical Tool\MathematicalTool\MathematicalTool.csproj", "{A2AD2EB7-5780-428D-809B-32FE219C99E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,22 @@ Global
 		{AF942D11-26F5-4920-8BC7-AC511753D8D2}.Release|x64.Build.0 = Release|Any CPU
 		{AF942D11-26F5-4920-8BC7-AC511753D8D2}.Release|x86.ActiveCfg = Release|Any CPU
 		{AF942D11-26F5-4920-8BC7-AC511753D8D2}.Release|x86.Build.0 = Release|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Debug|x64.Build.0 = Debug|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Debug|x86.Build.0 = Debug|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Release|ARM.Build.0 = Release|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Release|x64.Build.0 = Release|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Release|x86.ActiveCfg = Release|Any CPU
+		{A2AD2EB7-5780-428D-809B-32FE219C99E8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
