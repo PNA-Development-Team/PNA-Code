@@ -26,6 +26,23 @@ namespace DrawTool
             this.X = pt.X;
             this.Y = pt.Y;
         }
+
+        public Point2D(string xmlData)
+        {
+            xmlData = xmlData.Trim();
+            xmlData = xmlData.Replace("(", "");
+            xmlData = xmlData.Replace(")", "");
+            List<string> position = xmlData.Split(',').ToList();
+            if (position.Count != 2)
+                throw new NotSupportedException(xmlData + " is not the string's format of Point2D. Please follow such format \"(X, Y )\".");
+            this.X = Convert.ToDouble(position[0]);
+            this.Y = Convert.ToDouble(position[1]);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("({0},{1})", this.X.ToString(), this.Y.ToString());
+        }
     }
 
     public class Point3D
@@ -56,6 +73,24 @@ namespace DrawTool
         public Point2D ToXYPoint2D()
         {
             return new Point2D(this.X, this.Y);
+        }
+
+        public Point3D(string xmlData)
+        {
+            xmlData = xmlData.Trim();
+            xmlData = xmlData.Replace("(", "");
+            xmlData = xmlData.Replace(")", "");
+            List<string> position = xmlData.Split(',').ToList();
+            if (position.Count != 3)
+                throw new NotSupportedException(xmlData + " is not the string's format of Point3D. Please follow such format \"(X, Y, Z)\".");
+            this.X = Convert.ToDouble(position[0]);
+            this.Y = Convert.ToDouble(position[1]);
+            this.Z = Convert.ToDouble(position[2]);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("({0},{1},{2})", this.X.ToString(), this.Y.ToString(),this.Z.ToString());
         }
     }
 

@@ -6,44 +6,95 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Reflection;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using DrawTool;
 
 namespace RootApp
 {
-    public partial class PetriNetsPageForm : DockContent
+    public class PetriNetsPageInfo
     {
-        private IntPtr m_WinHandle = IntPtr.Zero;
-        public IntPtr WinHandle
-        {
-            get { return m_WinHandle; }
-        }
-        private bool m_isActive = false;
-        public bool IsActive
-        {
-            get { return m_isActive; }
-        }
-
-        private string m_pageName = "New Page";
+        private string m_pageName = string.Empty;
+        
         public string PageName
         {
             get { return m_pageName; }
+            set { m_pageName = value; }
+        }
+
+        private double m_viewSize = 0.0;
+        public double ViewSize
+        {
+            get { return m_viewSize; }
             set
             {
-                m_pageName = value;
-                this.Text = value;
+                m_viewSize = value;
             }
         }
 
-        private DrawTool.Color m_backgroundColor = DrawTool.Color.WHITE;
-        public DrawTool.Color BackgroundColor
+        private Point2D m_viewPosition = new Point2D();
+        public Point2D ViewPosition
+        {
+            get { return m_viewPosition; }
+            set
+            {
+                m_viewPosition = value;
+            }
+        }
+
+        public PetriNetsPageInfo()
+        {
+            
+        }
+
+        public PetriNetsPageInfo(string xmlData)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.InnerXml = xmlData;
+
+            XmlElement rootElement = doc.SelectSingleNode(@"\PetriNetsPageInfo") as XmlElement;
+
+            XmlElement pageElement = rootElement.SelectSingleNode(@"\Page") as XmlElement;
+            this.m_pageName = pageElement.GetAttribute("name");
+            XmlElement viewSizeElement = rootElement.SelectSingleNode(@"\ViewSize") as XmlElement;
+            this.m_viewSize = Convert.ToDouble(viewSizeElement.GetAttribute("value"));
+            XmlElement viewPositionElement = rootElement.SelectSingleNode(@"\ViewPosition") as XmlElement;
+            this.m_viewPosition = new Point2D(viewPositionElement.GetAttribute("value"));
+        }
+        public string ToXmlData()
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlElement rootElement = doc.CreateElement("PetriNetsPageInfo");
+
+            XmlElement pageElement = doc.CreateElement("Page");
+            pageElement.SetAttribute("name", this.m_pageName);
+            XmlElement viewSizeElement = doc.CreateElement("ViewSize");
+            viewSizeElement.SetAttribute("value", this.m_viewSize.ToString());
+            XmlElement viewPositionElement = doc.CreateElement("ViewPosition");
+            viewPositionElement.SetAttribute("value", this.m_viewPosition.ToString());
+
+            rootElement.AppendChild(pageElement);
+            rootElement.AppendChild(viewSizeElement);
+            rootElement.AppendChild(viewPositionElement);
+
+            doc.AppendChild(rootElement);
+
+            return doc.InnerXml;
+        }
+    }
+
+    public partial class PetriNetsPageForm : DockContent
+    {
+        private static DrawTool.Color m_backgroundColor = DrawTool.Color.WHITE;
+        public static DrawTool.Color BackgroundColor
         {
             get { return m_backgroundColor; }
             set
             {
                 m_backgroundColor = value;
-                this.Update();
+                PNAMainForm.Instance.CurrentOpenPNsPage.Update();
             }
         }
 
@@ -60,6 +111,26 @@ namespace RootApp
             get { return m_accuracy; }
             set { m_accuracy = value; }
         }
+    }
+
+    public partial class PetriNetsPageForm : DockContent
+    {
+        private IntPtr m_WinHandle = IntPtr.Zero;
+        public IntPtr WinHandle
+        {
+            get { return m_WinHandle; }
+        }
+        private bool m_isActive = false;
+        public bool IsActive
+        {
+            get { return m_isActive; }
+        }
+
+        private PetriNetsPageInfo m_pageInfo = new PetriNetsPageInfo();
+        public PetriNetsPageInfo PageInfo
+        {
+            get { return m_pageInfo; }
+        }
 
         public PetriNetsPageForm()
         {
@@ -69,6 +140,8 @@ namespace RootApp
             this.Paint += new PaintEventHandler(PetriNetsPageForm_Paint);
             this.Click += new EventHandler(PetriNetsPageForm_Click);
             this.SizeChanged += new EventHandler(PetriNetsPageForm_SizeChanged);
+            this.MouseWheel += new MouseEventHandler(PetriNetsPageForm_MouseWheelMove);
+            ModifiedPageName("New Page");
         }
 
         public void SetActiveMode(bool isActive)
@@ -117,11 +190,17 @@ namespace RootApp
             this.DockState = dockState;
         }
 
+        public void ModifiedPageName(string pageName)
+        {
+            this.m_pageInfo.PageName = pageName;
+            this.Text = pageName;
+        }
         public new void Update()
         {
             if (!DrawTool.Window.IsLoadedWindow())
                 SetActiveMode(true);
-            DrawTool.Window.SetBackgroundColor(this.m_backgroundColor);
+            DrawTool.Window.SetViewDistance(this.m_pageInfo.ViewSize);
+            DrawTool.Window.SetBackgroundColor(m_backgroundColor);
             if (m_isShowGrid)
                 DrawTool.Window.ShowGrid(Accuracy);
         }
@@ -141,15 +220,27 @@ namespace RootApp
             MessageBox.Show("Added Arc at " + this.Text + "!");
         }
 
-        public void ViewLarger()
+        private void PetriNetsPageForm_MouseWheelMove(object sender,MouseEventArgs e)
         {
-            DrawTool.Window.ViewLarger();
-            this.Update();
+            if(e.Delta > 0)
+            {
+                this.m_pageInfo.ViewSize++;             
+                this.Update();
+            }
+            else if(e.Delta < 0)
+            {
+                this.m_pageInfo.ViewSize--;
+                this.Update();
+            }
+            else if(e.Button == System.Windows.Forms.MouseButtons.Middle)
+            {
+
+            }
         }
 
-        public void ViewSmaller()
+        public void Adapt()
         {
-            DrawTool.Window.ViewSmaller();
+            this.m_pageInfo.ViewSize = 0;
             this.Update();
         }
     }

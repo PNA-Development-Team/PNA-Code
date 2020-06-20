@@ -25,4 +25,3 @@ D:\PNAProject\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.csproj.C
 D:\PNAProject\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.dll
 D:\PNAProject\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.pdb
 D:\PNAProject\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.csprojAssemblyReference.cache
-D:\Ryan\Github\PNA\PNA-Code\PNA\Utility\DrawTool\DrawTool\obj\Debug\DrawTool.csprojAssemblyReference.cache
