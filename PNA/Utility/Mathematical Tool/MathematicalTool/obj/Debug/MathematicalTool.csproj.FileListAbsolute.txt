@@ -97,8 +97,10 @@ D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\bin\Debug\
 D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\bin\Debug\System.Xml.XPath.dll
 D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\bin\Debug\System.Xml.XPath.XDocument.dll
 D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\bin\Debug\LpSolveDotNet.dll
-D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\obj\Debug\MathematicalTool.csprojAssemblyReference.cache
 D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\obj\Debug\MathematicalTool.csproj.CoreCompileInputs.cache
 D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\obj\Debug\MathematicalTool.csproj.CopyComplete
 D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\obj\Debug\MathematicalTool.dll
 D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\obj\Debug\MathematicalTool.pdb
+D:\PNAProject\PNA-Publication\PNA\Utility\MathematicalTool.dll
+D:\PNAProject\PNA-Publication\PNA\Utility\MathematicalTool.pdb
+D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\obj\Debug\MathematicalTool.csprojAssemblyReference.cache

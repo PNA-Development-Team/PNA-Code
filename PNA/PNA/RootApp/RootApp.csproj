@@ -34,6 +34,9 @@
     <Reference Include="DrawTool">
       <HintPath>..\..\..\..\PNA-Publication\PNA\Utility\DrawTool.dll</HintPath>
     </Reference>
+    <Reference Include="MathematicalTool">
+      <HintPath>..\..\..\..\PNA-Publication\PNA\Utility\MathematicalTool.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />

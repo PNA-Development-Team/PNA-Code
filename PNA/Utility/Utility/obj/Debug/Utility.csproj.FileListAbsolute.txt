@@ -20,4 +20,3 @@ D:\PNAProject\PNA-Publication\PNA\Utility\Utility.pdb
 D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.csproj.CoreCompileInputs.cache
 D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.dll
 D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.pdb
-D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.csprojAssemblyReference.cache
