@@ -294,6 +294,14 @@ namespace MathematicalTool.PetriNetTTuple
             return this;
         }
 
+        public int GetValueFromMarkingNameAndTransitionName(MarkingName markingName,TransitionName transitionName)
+        {
+            int rowIndex = this.m_PlaceNames.FindIndex(m => m == markingName);
+            int columnIndex = this.m_TransitionNames.FindIndex(t => t == transitionName);
+            return (int)this[rowIndex, columnIndex];
+
+        }
+
         #region Overrided Operator Functions
 
         public static IncidenceMatrix operator +(IncidenceMatrix matrix1, IncidenceMatrix matrix2)
@@ -322,6 +330,8 @@ namespace MathematicalTool.PetriNetTTuple
     {
         private MarkingName m_MarkingName = -1;
         private List<TransitionName> m_EnabledTransitions = new List<TransitionName>();
+        private IncidenceMatrix m_PreIncidenceMatrix = new IncidenceMatrix();
+        private IncidenceMatrix m_PostIncidenceMatrix = new IncidenceMatrix();
         private IncidenceMatrix m_IncidenceMatrix = new IncidenceMatrix();
 
         public MarkingName MarkingName{
@@ -331,6 +341,16 @@ namespace MathematicalTool.PetriNetTTuple
         public List<TransitionName> EnabledTransition
         {
             get=> m_EnabledTransitions;
+        }
+
+        public IncidenceMatrix PreIncidenceMatrix
+        {
+            get => this.m_PreIncidenceMatrix;
+        }
+
+        public IncidenceMatrix PostIncidenceMatrix
+        {
+            get => this.m_PostIncidenceMatrix;
         }
 
         public IncidenceMatrix IncidenceMatrix
@@ -355,9 +375,26 @@ namespace MathematicalTool.PetriNetTTuple
             }
         }
 
+        public Marking(MarkingName markingName, ColumnVector data, IncidenceMatrix preIncidenceMatrix, IncidenceMatrix postIncidence)
+            : base(data)
+        {
+            this.m_MarkingName = markingName;
+            this.m_PreIncidenceMatrix = preIncidenceMatrix;
+            this.m_PostIncidenceMatrix = postIncidence;
+            this.m_IncidenceMatrix = this.m_PostIncidenceMatrix - this.m_PreIncidenceMatrix;
+
+            foreach (TransitionName transitionName in this.m_IncidenceMatrix.TransitionNames)
+            {
+                if (this >= this.m_PreIncidenceMatrix.TransitionColumns[transitionName])
+                    this.m_EnabledTransitions.Add(transitionName);
+            }
+        }
+
         public Marking(Marking m) : base(m)
         {
             this.m_MarkingName = m.MarkingName;
+            this.m_PreIncidenceMatrix = m.m_PreIncidenceMatrix;
+            this.m_PostIncidenceMatrix = m.m_PostIncidenceMatrix;
             this.m_IncidenceMatrix = m.IncidenceMatrix;
             this.m_EnabledTransitions = m.EnabledTransition;
         }
@@ -391,7 +428,10 @@ namespace MathematicalTool.PetriNetTTuple
         {
             if (!CanFireTransition(t))
                 throw new NotSupportedException("M"+this.m_MarkingName+" can not fire t"+t);
-            return new Marking(this.m_MarkingName+1,this + this.IncidenceMatrix.TransitionColumns[t], this.IncidenceMatrix);
+            if (this.m_PostIncidenceMatrix.RowsCount == 0 || this.m_PreIncidenceMatrix.RowsCount == 0)
+                return new Marking(this.m_MarkingName + 1, this + this.IncidenceMatrix.TransitionColumns[t], this.IncidenceMatrix);
+            else
+                return new Marking(this.m_MarkingName + 1, this + this.IncidenceMatrix.TransitionColumns[t], this.m_PreIncidenceMatrix, this.m_PostIncidenceMatrix);
         }
 
         public bool CanFireTransition(TransitionName t)
@@ -406,15 +446,46 @@ namespace MathematicalTool.PetriNetTTuple
         {
             return base.ToString();
         }
+
+        public int GetMarkingValueFromPlaceName(PlaceName placeName)
+        {
+            if (!this.m_IncidenceMatrix.PlaceNames.Contains(placeName))
+            {
+                throw new NotSupportedException("Can not find p" + placeName + " at M" + this.MarkingName + ".");
+            }
+            int index = this.m_IncidenceMatrix.PlaceNames.IndexOf(placeName);
+            return (int)this[index];
+        }
     }
 
-    public class ReabilityGraph
+    public class Reachability
     {
         #region parameters
 
         private Marking m_M0 = new Marking();
 
         public Marking M0 { get => m_M0; }
+
+        public IncidenceMatrix IncidenceMatrix
+        {
+            get
+
+            {
+                if (this.m_M0.MarkingName == -1)
+                    return null;
+                return this.m_M0.IncidenceMatrix;
+            }
+        }
+
+        public List<PlaceName> PlaceNames
+        {
+            get => this.IncidenceMatrix.PlaceNames;
+        }
+
+        public List<TransitionName> TransitionNames
+        {
+            get => this.IncidenceMatrix.TransitionNames;
+        }
 
         private Dictionary<MarkingName,Marking> m_MarkingNameMapMarking = new Dictionary<MarkingName, Marking>();
 
@@ -425,17 +496,17 @@ namespace MathematicalTool.PetriNetTTuple
 
         private Dictionary<Marking, MarkingName> m_MarkingMapMarkingName = new Dictionary<Marking, MarkingName>();
 
-        private Dictionary<MarkingName, List<KeyValuePair<TransitionName,MarkingName>>> m_Graph =
-                        new Dictionary<MarkingName, List<KeyValuePair<TransitionName, MarkingName>>>();
+        private Dictionary<MarkingName, Dictionary<TransitionName, MarkingName>> m_Graph =
+                        new Dictionary<MarkingName, Dictionary<TransitionName, MarkingName>>();
 
-        public Dictionary<MarkingName, List<KeyValuePair<TransitionName, MarkingName>>> Graph
+        public Dictionary<MarkingName, Dictionary<TransitionName,MarkingName>> Graph
         {
             get => m_Graph;
         }
 
-        private Dictionary<TransitionName, List<MarkingName>> m_TransitionMapMarkings = new Dictionary<MarkingName, List<MarkingName>>();
+        private Dictionary<TransitionName, HashSet<MarkingName>> m_TransitionMapMarkings = new Dictionary<MarkingName, HashSet<MarkingName>>();
 
-        public Dictionary<TransitionName,List<MarkingName>> TransitionMapMarkings
+        public Dictionary<TransitionName,HashSet<MarkingName>> TransitionMapMarkings
         {
             get => m_TransitionMapMarkings;
         }
@@ -447,8 +518,44 @@ namespace MathematicalTool.PetriNetTTuple
             get
             {
                 if (m_LegalMarkings.Count == 0 || m_BadMarkings.Count == 0)
-                    CaculateLegalMarkings();
+                    AnalyzeMarkingsState();
                 return this.m_LegalMarkings;
+            }
+        }
+
+        private HashSet<MarkingName> m_IllegalMarkings = new HashSet<MarkingName>();
+
+        public HashSet<MarkingName> IllegalMarkings
+        {
+            get
+            {
+                if (m_LegalMarkings.Count == 0 || m_IllegalMarkings.Count == 0)
+                    AnalyzeMarkingsState();
+                return this.m_IllegalMarkings;
+            }
+        }
+
+        private HashSet<MarkingName> m_GoodMarkings = new HashSet<MarkingName>();
+
+        public HashSet<MarkingName> GoodMarkings
+        {
+            get
+            {
+                if (m_LegalMarkings.Count == 0 || m_IllegalMarkings.Count == 0)
+                    AnalyzeMarkingsState();
+                return this.m_GoodMarkings;
+            }
+        }
+
+        private HashSet<MarkingName> m_DangerousMarkings = new HashSet<MarkingName>();
+
+        public HashSet<MarkingName> DangerousMarkings
+        {
+            get
+            {
+                if (m_LegalMarkings.Count == 0 || m_IllegalMarkings.Count == 0)
+                    AnalyzeMarkingsState();
+                return this.m_DangerousMarkings;
             }
         }
 
@@ -458,9 +565,69 @@ namespace MathematicalTool.PetriNetTTuple
         {
             get
             {
-                if (m_LegalMarkings.Count == 0 || m_BadMarkings.Count == 0)
-                    CaculateLegalMarkings();
+                if (m_LegalMarkings.Count == 0 || m_IllegalMarkings.Count == 0)
+                    AnalyzeMarkingsState();
                 return this.m_BadMarkings;
+            }
+        }
+
+        private HashSet<MarkingName> m_DeadMarkings = new HashSet<MarkingName>();
+
+        public HashSet<MarkingName> DeadMarkings
+        {
+            get
+            {
+                if (m_LegalMarkings.Count == 0 || m_IllegalMarkings.Count == 0)
+                    AnalyzeMarkingsState();
+                return this.m_DeadMarkings;
+            }
+        }
+
+        private Dictionary<MarkingName, HashSet<TransitionName>> m_MTSIs = new Dictionary<MarkingName, HashSet<TransitionName>>();
+
+        public Dictionary<MarkingName, HashSet<TransitionName>> MTSIs
+        {
+            get
+            {
+                if (m_LegalMarkings.Count == 0 || m_IllegalMarkings.Count == 0)
+                    AnalyzeMarkingsState();
+                return this.m_MTSIs;
+            }
+        }
+
+        private HashSet<MarkingName> m_FBMs = new HashSet<MarkingName>();
+
+        public HashSet<MarkingName> FBMs
+        {
+            get
+            {
+                if (m_LegalMarkings.Count == 0 || m_IllegalMarkings.Count == 0)
+                    AnalyzeMarkingsState();
+                return this.m_FBMs;
+            }
+        }
+
+        private HashSet<TransitionName> m_GoodTransitions = new HashSet<TransitionName>();
+
+        public HashSet<TransitionName> GoodTransitions
+        {
+            get
+            {
+                if (m_LegalMarkings.Count == 0 || m_IllegalMarkings.Count == 0)
+                    AnalyzeMarkingsState();
+                return this.m_GoodTransitions;
+            }
+        }
+
+        private HashSet<TransitionName> m_CriticalTransitions = new HashSet<TransitionName>();
+
+        public HashSet<TransitionName> CriticalTransitions
+        {
+            get
+            {
+                if (m_LegalMarkings.Count == 0 || m_IllegalMarkings.Count == 0)
+                    AnalyzeMarkingsState();
+                return this.m_CriticalTransitions;
             }
         }
 
@@ -472,15 +639,20 @@ namespace MathematicalTool.PetriNetTTuple
 
         #endregion
 
-        public ReabilityGraph(Marking M0)
+        public Reachability()
+        {
+
+        }
+
+        public Reachability(Marking M0)
         {
             this.m_M0 = M0;
             this.m_MarkingNameMapMarking.Add(M0.MarkingName,M0);
             this.m_MarkingMapMarkingName.Add(M0, M0.MarkingName);
-            CaculateReabilityGraph();
+            CaculateReachability();
         }
 
-        private void CaculateReabilityGraph()
+        private void CaculateReachability()
         {
             while(this.m_CaculatedMarkings.Count < this.m_MarkingNameMapMarking.Count)
             {
@@ -495,20 +667,19 @@ namespace MathematicalTool.PetriNetTTuple
                     }        
                 }
             }
+            this.m_Count = this.m_MarkingNameMapMarking.Count;
         }
 
         private void FireAllTransitionsFromMarking(Marking m)
         {
             if (!this.m_Graph.ContainsKey(m.MarkingName))
-            {
-                List<KeyValuePair<TransitionName, MarkingName>> list = new List<KeyValuePair<TransitionName, MarkingName>>();
-                this.m_Graph.Add(m.MarkingName, list);
-            }
+                this.m_Graph.Add(m.MarkingName, new Dictionary<TransitionName, MarkingName>());
+
             foreach(TransitionName t in m.EnabledTransition)
             {
                 if (!this.m_TransitionMapMarkings.ContainsKey(t))
                 {
-                    this.m_TransitionMapMarkings.Add(t, new List<MarkingName>());
+                    this.m_TransitionMapMarkings.Add(t, new HashSet<MarkingName>());
                 }
                 Marking nextM = m.FireTransition(t);
                 if (!this.m_MarkingMapMarkingName.ContainsKey(nextM))
@@ -516,13 +687,13 @@ namespace MathematicalTool.PetriNetTTuple
                     nextM.MarkingName = ++this.m_Count;
                     this.m_MarkingNameMapMarking.Add(nextM.MarkingName,nextM);
                     this.m_MarkingMapMarkingName.Add(nextM, nextM.MarkingName);
-                    this.m_Graph[m.MarkingName].Add(new KeyValuePair<TransitionName, MarkingName>(t, nextM.MarkingName));
+                    this.m_Graph[m.MarkingName].Add(t, nextM.MarkingName);
                     this.m_TransitionMapMarkings[t].Add(nextM.MarkingName);
                 }
                 else
                 {
                     MarkingName name = this.m_MarkingMapMarkingName[nextM];
-                    this.m_Graph[m.MarkingName].Add(new KeyValuePair<TransitionName, MarkingName>(t,name));
+                    this.m_Graph[m.MarkingName].Add(t,name);
                     this.m_TransitionMapMarkings[t].Add(name);
                 }
             }
@@ -549,7 +720,7 @@ namespace MathematicalTool.PetriNetTTuple
             foreach(PlaceName p in this.m_M0.IncidenceMatrix.PlaceNames)
                 PlacesStr += " " + p; 
             
-            foreach(KeyValuePair<MarkingName, List<KeyValuePair<TransitionName, MarkingName>>> item in this.m_Graph)
+            foreach(KeyValuePair<MarkingName, Dictionary<TransitionName, MarkingName>> item in this.m_Graph)
             {
                 sw.WriteLine("State nr.\t" + item.Key.ToString());
                 sw.WriteLine(PlacesStr);
@@ -566,17 +737,48 @@ namespace MathematicalTool.PetriNetTTuple
             fs.Close();
         }
 
-        private void CaculateLegalMarkings()
+        private void AnalyzeMarkingsState()
         {
             Marking co_marking = new Marking(this.m_M0.MarkingName, this.m_M0, -this.m_M0.IncidenceMatrix);
-            ReabilityGraph co_reabilityGraph = new ReabilityGraph(co_marking);
+            Reachability co_Reachability = new Reachability(co_marking);
 
             foreach(KeyValuePair<Marking,MarkingName> item in this.m_MarkingMapMarkingName)
             {
-                if (co_reabilityGraph.m_MarkingMapMarkingName.ContainsKey(item.Key))
+                if (co_Reachability.m_MarkingMapMarkingName.ContainsKey(item.Key))
+                {
                     this.m_LegalMarkings.Add(item.Value);
+                    bool check = true;
+                    foreach(KeyValuePair<TransitionName,MarkingName> subItem in this.m_Graph[item.Value])
+                    {
+                        if (!co_Reachability.m_MarkingMapMarkingName.ContainsKey(this.m_MarkingNameMapMarking[subItem.Value]))
+                        {
+                            if(check)   check = false;
+                            this.m_CriticalTransitions.Add(subItem.Key);
+                            if (!this.m_MTSIs.ContainsKey(item.Value))
+                                this.m_MTSIs.Add(item.Value, new HashSet<MarkingName>());
+                            this.m_MTSIs[item.Value].Add(subItem.Key);
+                            this.m_FBMs.Add(subItem.Value);
+                        }  
+                    }
+                    if (check)
+                        this.m_GoodMarkings.Add(item.Value);
+                    else
+                        this.m_DangerousMarkings.Add(item.Value);
+                }
                 else
-                    this.m_BadMarkings.Add(item.Value);
+                {
+                    this.m_IllegalMarkings.Add(item.Value);
+                    if (this.m_Graph[item.Value].Count == 0)
+                        this.m_DeadMarkings.Add(item.Value);
+                    else
+                        this.m_BadMarkings.Add(item.Value);
+                }   
+            }
+
+            foreach(TransitionName t in this.M0.IncidenceMatrix.TransitionNames)
+            {
+                if (!this.m_CriticalTransitions.Contains(t))
+                    this.m_GoodTransitions.Add(t);
             }
         }
 
@@ -589,13 +791,89 @@ namespace MathematicalTool.PetriNetTTuple
             return this.m_MarkingNameMapMarking[markingName];
         }
 
-        public List<MarkingName> GetTEnabledMarkingsFromTransitionName(TransitionName transitionName)
+        public HashSet<MarkingName> GetTEnabledMarkingsFromTransitionName(TransitionName transitionName)
         {
             if (!this.m_TransitionMapMarkings.ContainsKey(transitionName))
             {
                 return null;
             }
             return this.m_TransitionMapMarkings[transitionName];
+        }
+
+        public List<PlaceName> GetOperationPlaceNames()
+        {
+            List<PlaceName> operationPlaceNames = new List<MarkingName>();
+            foreach(PlaceName placeName in this.M0.IncidenceMatrix.PlaceNames)
+            {
+                if (this.M0.GetMarkingValueFromPlaceName(placeName) == 0)
+                    operationPlaceNames.Add(placeName);
+            }
+            return operationPlaceNames;
+        }
+
+        public void ExportStateFile()
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "state files (*.state)|*.state| All files (*.*)|*.*";
+            DialogResult dialogResult = dialog.ShowDialog();
+            if (dialogResult != DialogResult.OK)
+                return;
+
+            FileInfo fileInfo = new FileInfo(dialog.FileName);
+            if (!Directory.Exists(fileInfo.DirectoryName))
+                return;
+            if (File.Exists(fileInfo.FullName))
+                File.Delete(fileInfo.FullName);
+            FileStream fs = new FileStream(fileInfo.FullName, FileMode.Create);
+            StreamWriter sw = new StreamWriter(fs);
+
+            if (this.m_LegalMarkings.Count == 0 || this.m_IllegalMarkings.Count == 0)
+                AnalyzeMarkingsState();
+
+            sw.WriteLine("The total num of state : " + this.Count.ToString());
+            sw.WriteLine("The total num of legal state : " + this.m_LegalMarkings.Count);
+            sw.WriteLine("The total num of illlegal state : " + this.m_IllegalMarkings.Count);
+            sw.WriteLine("The total num of good state : " + this.m_GoodMarkings.Count);
+            sw.WriteLine("The total num of dangerous state : " + this.m_DangerousMarkings.Count);
+            sw.WriteLine("The total num of bad state : " + this.m_BadMarkings.Count);
+            sw.WriteLine("The total num of dead state : " + this.m_DeadMarkings.Count);
+            sw.WriteLine("The total num of FBM state : " + this.m_FBMs.Count);
+            sw.WriteLine();
+
+            WriteDateToStateFile(ref sw, ref this.m_LegalMarkings, "legal");
+            WriteDateToStateFile(ref sw, ref this.m_IllegalMarkings, "illegal");
+            WriteDateToStateFile(ref sw, ref this.m_GoodMarkings, "good");
+            WriteDateToStateFile(ref sw, ref this.m_DangerousMarkings, "dangerous");
+            WriteDateToStateFile(ref sw, ref this.m_BadMarkings, "bad");
+            WriteDateToStateFile(ref sw, ref this.m_DeadMarkings, "dead");
+            WriteDateToStateFile(ref sw, ref this.m_FBMs, "FBM");
+
+            int count = 1;
+            foreach (KeyValuePair<MarkingName,HashSet<TransitionName>> item in this.m_MTSIs)
+            {
+                foreach(TransitionName t in item.Value)
+                {
+                    sw.WriteLine("MTSI state " + count.ToString() + ": M = " + item.Key + "; t = " + t);
+                    count++;
+                }   
+            }
+            sw.WriteLine("The total num of MTSI state : " + (--count).ToString());
+            sw.WriteLine();
+
+            sw.Close();
+            fs.Close();
+        }
+
+        private void WriteDateToStateFile(ref StreamWriter sw,ref HashSet<MarkingName> set,string name)
+        {
+            int count = 1;
+            foreach (MarkingName m in set)
+            {
+                sw.WriteLine(name + " state " + count.ToString() + ": " + m);
+                count++;
+            }
+            sw.WriteLine("The total num of " + name + " state : " + set.Count);
+            sw.WriteLine();
         }
     }
 }

@@ -34,7 +34,6 @@ D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.dll
 D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.pdb
 D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.Properties.Resources.resources
 D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.OperatorForm.resources
-D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.PetriNetsPageForm.resources
 D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.PNAMainForm.resources
 D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csproj.GenerateResource.cache
 D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csproj.CoreCompileInputs.cache
@@ -44,8 +43,5 @@ D:\PNAProject\PNA-Publication\PNA\PNA\RootApp.dll
 D:\PNAProject\PNA-Publication\PNA\PNA\RootApp.pdb
 D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csproj.CopyComplete
 D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csprojAssemblyReference.cache
-<<<<<<< HEAD
-D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.csprojAssemblyReference.cache
-=======
 D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.PetriNetsPageInfo.resources
->>>>>>> efaa52243c8bbf80aa057cb91456ed78bebd2c04
+D:\PNAProject\PNA-Code\PNA\PNA\RootApp\obj\Debug\RootApp.PetriNetsPageInfo.resources

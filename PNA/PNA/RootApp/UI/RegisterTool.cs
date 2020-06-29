@@ -22,7 +22,7 @@ namespace RootApp.UI
             if(!File.Exists(toolButtonIconFileFullPath))
                 throw new NotImplementedException("添加的工具栏按钮时未能找到图标文件！路径为："+ toolButtonIconFileFullPath);
 
-            string toolButtonFullName = RootApp.UI.RegisterMenu.DllNameMapParentMeuName[dllName] + "_" + toolButtonName;
+            string toolButtonFullName = RootApp.UI.RegisterMenu.DllNameMapParentMenuName[dllName] + "_" + toolButtonName;
             PNAMainForm.Instance.AddToolButton(toolButtonFullName, toolButtonIconFileFullPath);
             m_toolButtonFullNameMapDllName.Add(toolButtonFullName,dllName);
         }

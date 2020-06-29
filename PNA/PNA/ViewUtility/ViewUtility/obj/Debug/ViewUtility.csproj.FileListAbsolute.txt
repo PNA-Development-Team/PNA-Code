@@ -27,3 +27,4 @@ D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\ViewUtility\ViewUtility\obj\Debug\ViewUtilit
 D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\ViewUtility\ViewUtility\obj\Debug\ViewUtility.dll
 D:\Ryan\Github\PNA\PNA-Code\PNA\PNA\ViewUtility\ViewUtility\obj\Debug\ViewUtility.pdb
 D:\PNAProject\PNA-Code\PNA\PNA\ViewUtility\ViewUtility\obj\Debug\ViewUtility.ILPForm.resources
+D:\PNAProject\PNA-Code\PNA\PNA\ViewUtility\ViewUtility\obj\Debug\ViewUtility.csprojAssemblyReference.cache

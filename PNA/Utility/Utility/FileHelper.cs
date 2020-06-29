@@ -13,7 +13,7 @@ namespace Utility
         {
             List<string> allConfigFiles = new List<string>();
 
-            List<string> allXmlFiles = GetAllFormatFiles(folderPath,".xml",true);
+            List<string> allXmlFiles = GetAllFormatFiles(folderPath,"xml",true);
             foreach(string xmlFile in allXmlFiles)
             {
                 FileInfo fileInfo = new FileInfo(xmlFile);
@@ -24,6 +24,14 @@ namespace Utility
             return allConfigFiles;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <param name="format" like = "dll"></param>
+        /// <returns>
+        /// List<string> : all file at this folder with input format
+        /// </returns>
         public static List<string> GetAllFormatFiles(string folderPath, string format)
         {
             return GetAllFormatFiles(folderPath,format,false);
@@ -38,7 +46,7 @@ namespace Utility
                 return allFiles;
 
             DirectoryInfo folderInfo = new DirectoryInfo(folderPath);
-
+            format = "*." + format;
             foreach(FileInfo file in folderInfo.GetFiles(format))
             {
                 allFiles.Add(file.FullName);

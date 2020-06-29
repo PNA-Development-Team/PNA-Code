@@ -27,3 +27,4 @@ D:\PNAProject\PNA-Code\PNA\PNA\FileUtility\obj\Debug\FileUtility.csproj.CoreComp
 D:\PNAProject\PNA-Code\PNA\PNA\FileUtility\obj\Debug\FileUtility.csproj.CopyComplete
 D:\PNAProject\PNA-Code\PNA\PNA\FileUtility\obj\Debug\FileUtility.dll
 D:\PNAProject\PNA-Code\PNA\PNA\FileUtility\obj\Debug\FileUtility.pdb
+D:\PNAProject\PNA-Code\PNA\PNA\FileUtility\obj\Debug\FileUtility.csprojAssemblyReference.cache

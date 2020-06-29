@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using MathematicalTool.PetriNetTTuple;
 
 namespace MathematicalTool.PetriNetOperator
@@ -94,111 +95,94 @@ namespace MathematicalTool.PetriNetOperator
         {
             if (data.Count == 0)
                 return null;
-            IncidenceMatrix incidenceMatrix = GetIncidenceMatrixFromPlaceDictionary(data);
+            IncidenceMatrix preIncidenceMatrix = GetPreIncidenceMatrixFromPlaceDictionary(data);
+            IncidenceMatrix postIncidenceMatrix = GetPostIncidenceMatrixFromPlaceDictionary(data);
             List<int> initialMarkingData = new List<int>();
             foreach (Place p in data.Values.ToList())
             {
                 initialMarkingData.Add(p.InitialTokenNum);
             }
-            return new Marking(0, new ColumnVector(initialMarkingData), incidenceMatrix);
+            return new Marking(0, new ColumnVector(initialMarkingData), preIncidenceMatrix,postIncidenceMatrix);
         }
 
-        public static void ExportReabilityGraphFileFromPlaceDiationary(SortedDictionary<int, Place> data)
+        public static void ExportReachabilityFileFromPlaceDiationary(SortedDictionary<int, Place> data)
         {
             if (data.Count == 0)
                 return;
             Marking M0 = GetInitialMarkingFromPlaceDictionary(data);
-            ReabilityGraph gra = new ReabilityGraph(M0);
+            Reachability gra = new Reachability(M0);
             gra.Export2GraFile();
+            gra.ExportStateFile();
         }
 
         #endregion
 
-        #region Operator with Reability Graph
+        #region Operator with pnt file
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="reabilityGraph"></param>
-        /// <returns>
-        /// <para name="Dictionary<int,List<int>>"></para>
-        /// <para Key="name of marking of MTSIs"></para>
-        /// <para Value="list of transition which is enabled at Key's marking and will create a bad marking."></para>
-        /// </returns>
-        public static Dictionary<int,List<int>> GetMTSIs(ref ReabilityGraph reabilityGraph)
+        public static SortedDictionary<int, Place> GetDataFromPntFile(string filePath)
         {
-            Dictionary<int, List<int>> MTSIs = new Dictionary<int, List<int>>();
-            foreach (int markingName in reabilityGraph.LegalMarkings)
+            if (!File.Exists(filePath))
+                return null;
+
+            SortedDictionary<int, Place> data = new SortedDictionary<int, Place>();
+            FileStream fs = new FileStream(filePath, FileMode.Open);
+            StreamReader sr = new StreamReader(fs);
+            sr.ReadLine();
+            string str = sr.ReadLine();
+            while (str != "@")
             {
-                List<int> MTSI = new List<int>();
-                foreach (KeyValuePair<int, int> item in reabilityGraph.Graph[markingName])
-                {
-                    if (reabilityGraph.BadMarkings.Contains(item.Value))
-                        MTSI.Add(item.Key);
-                }
-                if (MTSI.Count != 0)
-                    MTSIs.Add(markingName,MTSI);
+                Place p = new Place(str);
+                data.Add(p.PlaceName, p);
+                str = sr.ReadLine();
             }
-            return MTSIs;
+            sr.Close();
+            fs.Close();
+            return data;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="reabilityGraph"></param>
-        /// <returns>
-        /// <para name="HashSet<int>"></para>
-        /// A hashset of name of first-met bad markings.
-        /// </returns>
-        public static HashSet<int> GetFBM(ref ReabilityGraph reabilityGraph)
+        public static IncidenceMatrix GetPreIncidenceMatrixFromPntFile(string filePath)
         {
-            HashSet<int> FBM = new HashSet<int>();
-            foreach (int markingName in reabilityGraph.LegalMarkings)
-            {
-                bool check = false;
-                foreach (KeyValuePair<int, int> item in reabilityGraph.Graph[markingName])
-                {
-                    if (reabilityGraph.BadMarkings.Contains(item.Value))
-                    {
-                        check = true;
-                        break;
-                    }
-                }
-                if (check)
-                    FBM.Add(markingName);
-            }
-            GetMTSIs(ref reabilityGraph);
-            return FBM;
+            if (!File.Exists(filePath))
+                return null;
+
+            SortedDictionary<int, Place> data = GetDataFromPntFile(filePath);
+            return PetriNetOperator.GetPreIncidenceMatrixFromPlaceDictionary(data);
         }
 
-        public static HashSet<int> GetTransitions(ref ReabilityGraph reabilityGraph)
+        public static IncidenceMatrix GetPostIncidenceMatrixFromPntFile(string filePath)
         {
-            HashSet<int> transitions = new HashSet<int>();
-            foreach(int t in reabilityGraph.TransitionMapMarkings.Keys.ToList())
-            {
-                transitions.Add(t);
-            }
-            return transitions;
+            if (!File.Exists(filePath))
+                return null;
+
+            SortedDictionary<int, Place> data = GetDataFromPntFile(filePath);
+            return PetriNetOperator.GetPostIncidenceMatrixFromPlaceDictionary(data);
         }
 
-        public static HashSet<int> GetTCriticalTransitions(ref ReabilityGraph reabilityGraph)
+        public static IncidenceMatrix GetIncidenceMatrixFromPntFile(string filePath)
         {
-            Dictionary<int, List<int>> MTSIs = GetMTSIs(ref reabilityGraph);
-            HashSet<int> TCriticalTransitions = new HashSet<int>();
-            foreach(List<int> item in MTSIs.Values.ToList())
-            {
-                foreach (int t in item)
-                    TCriticalTransitions.Add(t);
-            }
-            return TCriticalTransitions;
+            if (!File.Exists(filePath))
+                return null;
+
+            SortedDictionary<int, Place> data = GetDataFromPntFile(filePath);
+            return PetriNetOperator.GetIncidenceMatrixFromPlaceDictionary(data);
         }
 
-        public static HashSet<int> GetTGoodTransitions(ref ReabilityGraph reabilityGraph)
+        public static Marking GetInitialMarkingFromPntFile(string filePath)
         {
-            HashSet<int> Transitions = GetTransitions(ref reabilityGraph);
-            HashSet<int> TCriticalTransitions = GetTCriticalTransitions(ref reabilityGraph);
-            HashSet<int> TGoodTransitions = new HashSet<int>(Transitions.Where(q => !TCriticalTransitions.Contains(q)).ToList());
-            return TGoodTransitions;
+            if (!File.Exists(filePath))
+                return null;
+
+            SortedDictionary<int, Place> data = GetDataFromPntFile(filePath);
+            return PetriNetOperator.GetInitialMarkingFromPlaceDictionary(data);
+        }
+
+        public static void ExportReachabilityFileFromPntFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+                return;
+
+            SortedDictionary<int, Place> data = GetDataFromPntFile(filePath);
+            PetriNetOperator.ExportReachabilityFileFromPlaceDiationary(data);
         }
 
         #endregion

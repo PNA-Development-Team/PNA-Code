@@ -299,7 +299,7 @@ namespace PntFile.Forms
                 return;
 
             this.m_PlaceTable.Clear();
-            this.m_PlaceTable = PntFileOperation.GetDataFromPntFile(dialog.FileName);
+            this.m_PlaceTable = PetriNetOperator.GetDataFromPntFile(dialog.FileName);
             if (this.m_PlaceTable == null)
                 return;
             for (int i = this.dgvTable.Rows.Count-1; i >= 0; i--)
@@ -374,7 +374,7 @@ namespace PntFile.Forms
 
         private void btExportGra_Click(object sender, EventArgs e)
         {
-            PetriNetOperator.ExportReabilityGraphFileFromPlaceDiationary(this.m_PlaceTable);
+            PetriNetOperator.ExportReachabilityFileFromPlaceDiationary(this.m_PlaceTable);
             setNotice("Export reability graph file success.");
         }
 

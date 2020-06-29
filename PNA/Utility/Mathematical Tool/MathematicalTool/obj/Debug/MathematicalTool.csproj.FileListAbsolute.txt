@@ -103,4 +103,3 @@ D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\obj\Debug\
 D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\obj\Debug\MathematicalTool.pdb
 D:\PNAProject\PNA-Publication\PNA\Utility\MathematicalTool.dll
 D:\PNAProject\PNA-Publication\PNA\Utility\MathematicalTool.pdb
-D:\PNAProject\PNA-Code\PNA\Utility\Mathematical Tool\MathematicalTool\obj\Debug\MathematicalTool.csprojAssemblyReference.cache

@@ -29,3 +29,4 @@ D:\PNAProject\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.csproj.CoreCompileInputs.cache
 D:\PNAProject\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.csproj.CopyComplete
 D:\PNAProject\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.exe
 D:\PNAProject\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.pdb
+D:\PNAProject\PNA-Code\PNA\PNA\PNA\obj\Debug\PNA.csprojAssemblyReference.cache

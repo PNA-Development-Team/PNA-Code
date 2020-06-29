@@ -31,6 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NPOI">
+      <HintPath>..\..\PNA\packages\NPOI.2.4.0\lib\netstandard2.0\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\..\PNA\packages\NPOI.2.4.0\lib\netstandard2.0\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\..\PNA\packages\NPOI.2.4.0\lib\netstandard2.0\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\..\PNA\packages\NPOI.2.4.0\lib\netstandard2.0\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -44,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DebugHelper.cs" />
+    <Compile Include="ExcelHelper.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="FormHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

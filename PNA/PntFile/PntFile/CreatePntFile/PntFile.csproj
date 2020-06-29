@@ -60,7 +60,6 @@
     <Compile Include="Forms\CreatePntForm.Designer.cs">
       <DependentUpon>CreatePntForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PntFileOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

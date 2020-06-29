@@ -13,7 +13,8 @@ namespace RootApp.UI
     public class RegisterMenu
     {
         private static Dictionary<string, string> m_dllNameMapParentMenuName = new Dictionary<string, string>();
-        public static Dictionary<string,string> DllNameMapParentMeuName
+
+        public static Dictionary<string,string> DllNameMapParentMenuName
         {
             get { return m_dllNameMapParentMenuName; }
         }
