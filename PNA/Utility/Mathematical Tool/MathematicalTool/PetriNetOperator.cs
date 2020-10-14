@@ -113,6 +113,7 @@ namespace MathematicalTool.PetriNetOperator
             Reachability gra = new Reachability(M0);
             gra.Export2GraFile();
             gra.ExportStateFile();
+            gra.Export2OtherGraFile();
         }
 
         #endregion

@@ -875,5 +875,50 @@ namespace MathematicalTool.PetriNetTTuple
             sw.WriteLine("The total num of " + name + " state : " + set.Count);
             sw.WriteLine();
         }
+
+        public void Export2OtherGraFile()
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "gra files (*.gra)|*.gra| All files (*.*)|*.*";
+            DialogResult dialogResult = dialog.ShowDialog();
+            if (dialogResult != DialogResult.OK)
+                return;
+
+            FileInfo fileInfo = new FileInfo(dialog.FileName);
+            if (!Directory.Exists(fileInfo.DirectoryName))
+                return;
+            if (File.Exists(fileInfo.FullName))
+                File.Delete(fileInfo.FullName);
+            FileStream fs = new FileStream(fileInfo.FullName, FileMode.Create);
+            StreamWriter sw = new StreamWriter(fs);
+
+
+            foreach (KeyValuePair<MarkingName, Dictionary<TransitionName, MarkingName>> item in this.m_Graph)
+            {
+                string str = string.Empty;
+                if (this.m_LegalMarkings.Contains(item.Key))
+                    str += "Legal Marking:\t[";
+                else
+                    str += "Illegal Marking:\t";
+                str += this.m_MarkingNameMapMarking[item.Key].ToString();
+                str = str.Remove(str.Length - 2, 2).Remove(0, 1)+"]";
+                sw.WriteLine(str);
+                foreach (KeyValuePair<TransitionName, MarkingName> subItem in item.Value)
+                {
+                    string subStr = string.Empty;
+                    if(this.m_LegalMarkings.Contains(subItem.Value))
+                        subStr += "Legal Marking:\t[";
+                    else
+                        subStr += "Illegal Marking:\t";
+                    subStr += this.m_MarkingNameMapMarking[subItem.Value].ToString();
+                    subStr = subStr.Remove(subStr.Length - 2, 2).Remove(0, 1) + "]";
+                    sw.WriteLine("==t" + subItem.Key.ToString() + "=>\t" + subStr);
+                }
+            }
+
+
+            sw.Close();
+            fs.Close();
+        }
     }
 }

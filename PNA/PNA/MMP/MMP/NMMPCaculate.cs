@@ -50,7 +50,7 @@ namespace MMP
             foreach (int m in operatorMarkings)
             {
                 variables.Add("l" + m.ToString());
-                objectFunction.Add(0);
+                objectFunction.Add(-1);
 
                 gin.Add(true);
                 bin.Add(false);
@@ -68,7 +68,7 @@ namespace MMP
 
             //Add variables: Belta
             variables.Add("Belta");
-            objectFunction.Add(0);
+            objectFunction.Add(-1);
             gin.Add(true);
             bin.Add(false);
 
@@ -76,7 +76,7 @@ namespace MMP
             foreach(int t in this.m_Reachability.CriticalTransitions)
             {
                 variables.Add("Omega" + t.ToString());
-                objectFunction.Add(0);
+                objectFunction.Add(-1);
                 gin.Add(true);
                 bin.Add(false);
             }

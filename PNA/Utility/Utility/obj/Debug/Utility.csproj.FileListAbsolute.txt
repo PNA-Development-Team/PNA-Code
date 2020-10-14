@@ -21,3 +21,4 @@ D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.csproj.CoreCompileI
 D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.dll
 D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.pdb
 D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.csproj.CopyComplete
+D:\PNAProject\PNA-Code\PNA\Utility\Utility\obj\Debug\Utility.csprojAssemblyReference.cache
